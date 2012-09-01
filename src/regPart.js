@@ -9,7 +9,7 @@ var characters = {
     noword: "\\W",
     formfeed: "\\f",
     newline: "\\n",
-    carriage: "\\r",
+    ret: "\\r",
     anything: ".",
     tab: "\\t",
     vtab: "\\v",
