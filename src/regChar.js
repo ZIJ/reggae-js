@@ -6,15 +6,26 @@
 function RegChar(str){
     RegExpression.call(this);
 
+    var character = "";
+
     var specialChar = /^[\\{}*+?()|\[\]^$.]$/;
     // class shortcut, or control character, or hex character, or unicode
     var escapedChar = /^\\(?:[bBdDfnrsStvwW0]|c[A-Z]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4})$/;
+    var backspace = /^\[\\b\]$/;
     if (specialChar.test(str)){
-        this.pattern = "\\" + str;
-    } else if (str.length === 1 || escapedChar.test(str)){
-        this.pattern = str;
+        character = "\\" + str;
+    } else if (str.length === 1 || escapedChar.test(str) || backspace.test(str)){
+        character = str;
     } else {
         throw new SyntaxError(str + " is not a single character or valid escape sequence");
+    }
+
+    /**
+     * Gets character value
+     * @return {String}
+     */
+    this.pattern = function(){
+        return character;
     }
 }
 
@@ -29,6 +40,7 @@ RegChar.prototype.constructor = RegChar;
  * @return {RegChar}
  */
 RegChar.escape = function(chr) {
+    //TODO check for special chars in RegChar.escape()
     if (typeof(chr) !== "string" || chr.length !== 1) {
         throw new Error(chr + "is not a single character");
     }
@@ -73,4 +85,38 @@ RegChar.unicode = function(hexStr){
     }
     return new RegChar("\\u" + hexStr);
 };
+
+/**
+ * Backspace shorctcut ([\b])
+ * @return {RegChar}
+ */
+RegChar.backspace = function(){
+    return new RegChar("[\\b]");
+};
+
+// Shorcut method names to characters map
+var charShortcuts = {
+    bound: "b",
+    nobound: "B",
+    digit: "d",
+    nodigit: "D",
+    space: "s",
+    nospace: "S",
+    word: "w",
+    noword: "W",
+    formfeed: "f",
+    newline: "n",
+    ret: "r",
+    anything: ".",
+    tab: "t",
+    vtab: "v",
+    nul: "0"
+};
+
+// Adding shorcut methods
+obj(charShortcuts).forEach(function(name, value){
+    RegChar[name] = function(){
+        return this.escape(value);
+    };
+});
 
