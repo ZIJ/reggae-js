@@ -21,6 +21,10 @@ RegExpression.prototype.target = function(){
     return this;
 };
 
+RegExpression.prototype.pattern = function(){
+
+}
+
 /**
  * Sets given flag to true
  * @param flagName {String} Name of flag

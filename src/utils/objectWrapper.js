@@ -1,6 +1,6 @@
 /**
- *
- * @param obj
+ * Shortcut for new ObjectWrapper(obj)
+ * @param obj {Object}
  * @return {ObjectWrapper}
  */
 function obj(obj){

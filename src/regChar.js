@@ -29,10 +29,7 @@ function RegChar(str){
     }
 }
 
-//TODO refactor inheritance
-
-RegChar.prototype = new RegExpression();
-RegChar.prototype.constructor = RegChar;
+func(RegChar).extend(RegExpression);
 
 /**
  * Shorcut for escaped characters
@@ -94,29 +91,13 @@ RegChar.backspace = function(){
     return new RegChar("[\\b]");
 };
 
-// Shorcut method names to characters map
-var charShortcuts = {
-    bound: "b",
-    nobound: "B",
-    digit: "d",
-    nodigit: "D",
-    space: "s",
-    nospace: "S",
-    word: "w",
-    noword: "W",
-    formfeed: "f",
-    newline: "n",
-    ret: "r",
-    anything: ".",
-    tab: "t",
-    vtab: "v",
-    nul: "0"
-};
-
-// Adding shorcut methods
+// Adding shorcut methods to RegChar and RegExpression's prototype
 obj(charShortcuts).forEach(function(name, value){
     RegChar[name] = function(){
-        return this.escape(value);
+        return RegChar.escape(value);
+    };
+    RegExpression.prototype[name] = function(){
+        return this.target().append(RegChar[name]());
     };
 });
 
