@@ -3,7 +3,6 @@
  * @constructor
  */
 function RegExpression(){
-    this.pattern = "";
     this.parts = [];
     this.flags = {
         global: false,
@@ -22,8 +21,20 @@ RegExpression.prototype.target = function(){
 };
 
 RegExpression.prototype.pattern = function(){
+    var str = "";
+    arr(this.parts).forEach(function(i, part){
+        str += part.pattern();
+    });
+    //TODO refactor flags usage. Maybe separate RegFlags class with pattern() method?
+    str += this.flags.global ? "g" : "";
+    str += this.flags.ignoreCase ? "i" : "";
+    str += this.flags.multiline ? "m" : "";
+    return str;
+};
 
-}
+RegExpression.prototype.make = function(){
+    return new RegExp(this.pattern());
+};
 
 /**
  * Sets given flag to true

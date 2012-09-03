@@ -8,7 +8,7 @@ function RegChar(str){
 
     var character = "";
 
-    var specialChar = /^[\\{}*+?()|\[\]^$.]$/;
+    var specialChar = /^[\\{}*+?()|\[\]\^$.]$/;
     // class shortcut, or control character, or hex character, or unicode
     var escapedChar = /^\\(?:[bBdDfnrsStvwW0]|c[A-Z]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4})$/;
     var backspace = /^\[\\b\]$/;
@@ -26,7 +26,7 @@ function RegChar(str){
      */
     this.pattern = function(){
         return character;
-    }
+    };
 }
 
 func(RegChar).extend(RegExpression);

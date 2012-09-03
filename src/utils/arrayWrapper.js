@@ -1,10 +1,10 @@
 /**
  * Shortcut for new ArrayWrapper(arr)
- * @param arr {Array}
+ * @param array {Array}
  * @return {ArrayWrapper}
  */
-function arr(arr){
-    return new ArrayWrapper(arr);
+function arr(array){
+    return new ArrayWrapper(array);
 }
 
 /**
@@ -14,7 +14,7 @@ function arr(arr){
  */
 function ArrayWrapper(arr){
     if (!(arr instanceof Array)) {
-        throw new TypeError(arr + " is not an array");
+        throw new TypeError("first argument should be array");
     }
     this.arr = arr;
 }

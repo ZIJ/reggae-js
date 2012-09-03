@@ -37,7 +37,8 @@ module.exports = function(grunt) {
             all: {
                 src: ['src/partial/header.js.part',
                       'src/utils/*.js',
-                      'src/*.js',
+                      'src/commonData.js', 'src/regExpression.js', 'src/regChar.js',
+                      'src/reg.js',
                       'src/partial/footer.js.part'],
                 dest: 'reggae.js'
             }

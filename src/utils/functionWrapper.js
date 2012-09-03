@@ -1,10 +1,10 @@
 /**
  * Shortcut for new FunctionWrapper(func)
- * @param func {Function}
+ * @param f {Function}
  * @return {FunctionWrapper}
  */
-function func(func){
-    return new FunctionWrapper(func);
+function func(f){
+    return new FunctionWrapper(f);
 }
 
 /**
@@ -13,8 +13,8 @@ function func(func){
  * @constructor
  */
 function FunctionWrapper(func){
-    if (typeof(func !== "function")) {
-        throw new TypeError(func + " is not a function");
+    if (typeof func !== "function") {
+        throw new TypeError("first argument should be function");
     }
     this.func = func;
 }
@@ -26,12 +26,12 @@ function FunctionWrapper(func){
  */
 FunctionWrapper.prototype.extend = function(baseConstructor){
     if (typeof baseConstructor !== "function"){
-        throw new TypeError(baseConstructor + " is not a function");
+        throw new TypeError(baseConstructor + "first argument should be function");
     }
     var F = function() { };
     F.prototype = baseConstructor.prototype;
     this.func.prototype = new F();
     this.func.prototype.constructor = this.func;
-    this.func.super = baseConstructor.prototype;
+    this.func.uber = baseConstructor.prototype;
     return this;
 };

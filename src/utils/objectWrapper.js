@@ -1,10 +1,10 @@
 /**
  * Shortcut for new ObjectWrapper(obj)
- * @param obj {Object}
+ * @param object {Object}
  * @return {ObjectWrapper}
  */
-function obj(obj){
-    return new ObjectWrapper(obj);
+function obj(object){
+    return new ObjectWrapper(object);
 }
 
 /**
@@ -13,8 +13,8 @@ function obj(obj){
  * @constructor
  */
 function ObjectWrapper(obj){
-    if (typeof(obj !== "object")) {
-        throw new TypeError(obj + " is not an object");
+    if (typeof obj !== "object") {
+        throw new TypeError("first argument should be object");
     }
     this.obj = obj;
 }

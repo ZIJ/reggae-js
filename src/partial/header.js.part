@@ -1,5 +1,5 @@
 /**
- * Reggae JavaScript RegExp constructor
+ * Reggae JavaScript RegExp builder
  * Version 0.1
  * Created by Igor Zalutsky
  * Released under MIT license
@@ -8,11 +8,3 @@
 (function () {
 
 "use strict";
-
-var globalObject = window || global || this;
-
-if (!globalObject.reg) {
-    globalObject.reg = {};
-}
-
-var reg = globalObject.reg;
