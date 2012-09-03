@@ -8,13 +8,16 @@ function RegChar(str){
 
     var character = "";
 
-    var specialChar = /^[\\{}*+?()|\[\]\^$.]$/;
+    var special = /^[\\{}*+?()|\[\]\^$.]$/;         // special charaters will be escaped
+    var unescape = /^\\[\\{}*+?()|\[\]\^$.]$/;      // already escaped will be unescaped
     // class shortcut, or control character, or hex character, or unicode
-    var escapedChar = /^\\(?:[bBdDfnrsStvwW0]|c[A-Z]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4})$/;
+    var escaped = /^\\(?:[bBdDfnrsStvwW0]|c[A-Z]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4})$/;
     var backspace = /^\[\\b\]$/;
-    if (specialChar.test(str)){
+    if (special.test(str)){             // escaping special characters
         character = "\\" + str;
-    } else if (str.length === 1 || escapedChar.test(str) || backspace.test(str)){
+    } else if(unescape.test(str)) {     // unescaping those already escaped
+        character = str.slice(1);
+    } else if (str.length === 1 || escaped.test(str) || backspace.test(str)){
         character = str;
     } else {
         throw new SyntaxError(str + " is not a single character or valid escape sequence");
